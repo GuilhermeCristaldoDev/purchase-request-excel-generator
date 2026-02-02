@@ -4,21 +4,23 @@ using Web.Models;
 
 namespace Web.Controllers;
 
-public class HomeController : Controller
+[Route("Requisition")]
+public class RequisitionController : Controller
 {
+    [HttpGet("")]
     public IActionResult Index()
     {
         return View();
     }
 
-    public IActionResult Privacy()
+    [HttpPost("submit")]
+    public IActionResult Submit(RequisitonDto dto)
     {
-        return View();
-    }
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return Ok(dto);
     }
 }
